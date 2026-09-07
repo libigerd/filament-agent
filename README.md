@@ -6,7 +6,7 @@ No-code AI agent postavený v Langflow, který spravuje inventář filamentů pr
 
 ## Motivace
 
-Ve své praxi (návrh a tisk vlastních CAD dílů — enclosury pro Raspberry Pi kamery, přípravky pro Festool Domino, custom brackety pro automotive projekty) točím desítky cívek filamentu různých značek. Ruční hledání „kolik mi zbývá PETG černý" nebo „která cívka snese 100 °C" je otravné. Tenhle agent to řeší přirozeným jazykem.
+Ve své hobby praxi (návrh a tisk vlastních CAD dílů — enclosury pro Raspberry Pi kamery, přípravky pro Festool Domino, custom brackety pro automotive projekty ....) točím desítky cívek filamentu různých značek. Ruční hledání „kolik mi zbývá PETG černý" nebo „který filament snese 100 °C" je otravné. Tenhle agent to řeší přirozeným jazykem.
 
 ## Architektura
 
@@ -114,7 +114,6 @@ Seed obsahuje 15 reálných cívek od výrobců Prusament, Fiberlogy, Devil Desi
 
 - SQL Query tool posílá modelu raw SQL, které si sám vygeneruje. Pro produkci by chtělo whitelist tabulek / read-only DB user.
 - Chat memory je součástí Playgroundu Langflow, po restartu kontejneru zmizí (Simple Memory v RAM).
-- DuckDuckGo Search občas rate-limituje; agent to ustojí a odpoví z DB.
 
 ## Odevzdávaný soubor
 
