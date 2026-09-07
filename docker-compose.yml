@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: filament-postgres
+    environment:
+      POSTGRES_USER: filament
+      POSTGRES_PASSWORD: filament123
+      POSTGRES_DB: filament_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U filament -d filament_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - filament-net
+
+  langflow:
+    image: langflowai/langflow:latest
+    container_name: filament-langflow
+    ports:
+      - "7860:7860"
+    environment:
+      LANGFLOW_DATABASE_URL: postgresql://filament:filament123@postgres:5432/langflow_db
+      LANGFLOW_AUTO_LOGIN: "true"
+      # Stable key so credentials/global variables stored in Postgres stay decryptable
+      # across container recreates. Value lives in .env (gitignored).
+      LANGFLOW_SECRET_KEY: ${LANGFLOW_SECRET_KEY:?set LANGFLOW_SECRET_KEY in .env}
+      LANGFLOW_LOG_LEVEL: info
+      # SSRF ochrana — povolíme jen náš Postgres hostname
+      LANGFLOW_SSRF_ALLOWED_HOSTS: "postgres,host.docker.internal"
+    volumes:
+      - ./langflow-data:/app/langflow-data
+      - ./flows:/app/flows
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - filament-net
+
+networks:
+  filament-net:
+    driver: bridge
+
+volumes:
+  postgres_data:

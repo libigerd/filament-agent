@@ -1,0 +1,28 @@
+# Langflow persistent data (SQLite DB, uploads, cache)
+langflow-data/
+
+# Postgres data volume (docker manages it, ne co gitovat)
+postgres_data/
+
+# Env soubory (kdybys nekdy vytahl konfiguraci ven)
+.env
+.env.local
+.env.*.local
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor junk
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python virtualenvs (kdybys pridal custom komponenty)
+venv/
+.venv/
+__pycache__/
+*.pyc
