@@ -36,6 +36,13 @@ services:
     volumes:
       - ./langflow-data:/app/langflow-data
       - ./flows:/app/flows
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:7860/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      # Langflow potrebuje ~40-60 s na start (migrace + nacteni komponent)
+      start_period: 90s
     depends_on:
       postgres:
         condition: service_healthy
