@@ -35,6 +35,8 @@ filament-agent/
 │   └── 02-seed.sql              # 15 reálných cívek + historie tisků
 ├── flows/
 │   └── 3D-filament-asistent.json  # Exportovaný Langflow workflow (ODEVZDÁVANÝ SOUBOR)
+├── docs/
+│   ├── *.png       # několik screenshots komunikace s asistentem
 ├── .gitignore
 └── README.md
 ```
